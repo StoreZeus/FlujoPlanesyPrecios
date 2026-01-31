@@ -4,24 +4,30 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Flujo TV | Descarga • Planes • Instalar</title>
-  <meta name="description" content="Landing responsive: descarga, instalación, planes y contacto por WhatsApp." />
+  <meta name="description" content="Landing responsive: descarga, instalación, planes y WhatsApp." />
 
   <style>
     :root{
-      --bg0:#050607;
-      --bg1:#0b0e11;
-      --card: rgba(255,255,255,.06);
-      --line: rgba(255,255,255,.12);
+      /* Negro + plomo */
+      --bg0:#060708;
+      --bg1:#0c0f12;
+      --panel: rgba(255,255,255,.05);
+      --panel2: rgba(255,255,255,.07);
+      --line: rgba(255,255,255,.11);
+
       --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
+      --muted: rgba(255,255,255,.70);
       --soft: rgba(255,255,255,.55);
 
-      --accent:#ff7a18;
-      --accent2:#ffb000;
+      /* Acento sobrio (plata) */
+      --accent:#c9cdd3;
+      --accent2:#7b8088;
+
+      /* Verde WhatsApp */
       --ok:#22c55e;
 
       --r:18px;
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --shadow: 0 18px 60px rgba(0,0,0,.60);
       --max: 1140px;
     }
 
@@ -37,34 +43,45 @@
     a{color:inherit;text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
 
-    /* Animated blobs background */
-    .bgfx{
-      position:fixed; inset:0; z-index:-1;
-      pointer-events:none;
-      overflow:hidden;
-    }
+    /* FX layer (blobs + grain + subtle grid) */
+    .bgfx{position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden;}
     .blob{
       position:absolute;
-      width: 520px; height: 520px;
+      width: 560px; height: 560px;
       border-radius: 999px;
-      filter: blur(40px);
-      opacity: .35;
+      filter: blur(52px);
+      opacity: .24;
       mix-blend-mode: screen;
-      animation: floaty 14s ease-in-out infinite;
+      animation: floaty 16s ease-in-out infinite;
     }
-    .blob.a{left:-140px; top:-160px; background: radial-gradient(circle at 30% 30%, rgba(255,122,24,.9), transparent 60%);}
-    .blob.b{right:-160px; top:-120px; background: radial-gradient(circle at 40% 40%, rgba(255,176,0,.75), transparent 60%); animation-duration: 16s;}
-    .blob.c{left: 10%; bottom:-220px; background: radial-gradient(circle at 40% 40%, rgba(255,122,24,.55), transparent 60%); animation-duration: 18s;}
+    .blob.a{left:-180px; top:-180px; background: radial-gradient(circle at 30% 30%, rgba(201,205,211,.75), transparent 60%);}
+    .blob.b{right:-200px; top:-140px; background: radial-gradient(circle at 40% 40%, rgba(123,128,136,.70), transparent 60%); animation-duration: 18s;}
+    .blob.c{left: 12%; bottom:-260px; background: radial-gradient(circle at 40% 40%, rgba(201,205,211,.55), transparent 60%); animation-duration: 20s;}
     @keyframes floaty{
       0%,100%{transform: translate(0,0) scale(1)}
-      50%{transform: translate(24px, -18px) scale(1.05)}
+      50%{transform: translate(28px, -20px) scale(1.05)}
+    }
+    .grain{
+      position:absolute; inset:-50%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+      opacity:.05;
+      transform: rotate(10deg);
+    }
+    .gridfx{
+      position:absolute; inset:0;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity:.12;
+      mask-image: radial-gradient(closest-side at 50% 20%, rgba(0,0,0,1), transparent 70%);
     }
 
     /* Topbar */
     .topbar{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(10px);
-      background: rgba(5,6,7,.70);
+      background: rgba(6,7,8,.80);
       border-bottom: 1px solid var(--line);
     }
     .nav{
@@ -79,20 +96,18 @@
     .logo{
       width:34px; height:34px; border-radius:12px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 14px 28px rgba(255,122,24,.18);
+      box-shadow: 0 14px 28px rgba(201,205,211,.12);
       position:relative;
     }
     .logo:after{
       content:"";
       position:absolute; inset:9px 10px 9px 13px;
       clip-path: polygon(0 0, 100% 50%, 0 100%);
-      background: rgba(0,0,0,.25);
+      background: rgba(0,0,0,.35);
       border-radius: 2px;
     }
 
-    .navlinks{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-    }
+    .navlinks{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
     .navlinks a{
       font-size:14px; color:var(--muted);
       padding:8px 10px; border-radius:999px;
@@ -101,7 +116,7 @@
     }
     .navlinks a:hover{
       color:var(--text);
-      border-color:rgba(255,255,255,.18);
+      border-color:rgba(255,255,255,.16);
       background: rgba(255,255,255,.04);
       transform: translateY(-1px);
     }
@@ -130,28 +145,22 @@
     .btn.primary{
       border-color: transparent;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #111;
-      box-shadow: 0 18px 34px rgba(255,122,24,.18);
+      color: #0b0e11;
+      box-shadow: 0 18px 34px rgba(201,205,211,.10);
     }
-    .btn.primary:hover{filter:saturate(1.06) brightness(1.03)}
+    .btn.primary:hover{filter:saturate(1.02) brightness(1.03)}
     .btn.ghost{background: transparent}
     .btn.small{padding:8px 12px; font-size:13px}
-
-    /* subtle shine */
     .btn.primary::after{
       content:"";
       position:absolute; inset:0;
       border-radius:999px;
-      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.35) 35%, transparent 70%);
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.25) 35%, transparent 70%);
       transform: translateX(-120%);
       opacity:.55;
     }
-    .btn.primary:hover::after{
-      animation: shine .9s ease;
-    }
-    @keyframes shine{
-      to{transform: translateX(120%)}
-    }
+    .btn.primary:hover::after{animation: shine .9s ease}
+    @keyframes shine{to{transform: translateX(120%)}}
 
     .pill{
       display:inline-flex; gap:8px; align-items:center;
@@ -180,7 +189,7 @@
     }
     .drawer a:hover{background: rgba(255,255,255,.04); color:var(--text)}
 
-    /* Hero */
+    /* Layout */
     .hero{padding: 34px 0 18px}
     .heroGrid{
       display:grid;
@@ -192,24 +201,28 @@
 
     .card{
       border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border-radius: var(--r);
       box-shadow: var(--shadow);
       position:relative;
       overflow:hidden;
     }
-
-    /* gradient border glow on hover */
     .card::before{
       content:"";
       position:absolute; inset:-1px;
-      background: radial-gradient(800px 240px at 20% 0%, rgba(255,122,24,.25), transparent 60%),
-                  radial-gradient(800px 240px at 80% 0%, rgba(255,176,0,.18), transparent 60%);
+      background: radial-gradient(800px 240px at 20% 0%, rgba(201,205,211,.20), transparent 60%),
+                  radial-gradient(800px 240px at 80% 0%, rgba(123,128,136,.16), transparent 60%);
       opacity: .0;
       transition: opacity .2s ease;
       pointer-events:none;
     }
-    .card:hover::before{opacity:.9}
+    .card:hover::before{opacity:.95}
+    .cardGlow{
+      position:absolute; inset:0;
+      background: radial-gradient(700px 220px at 30% 10%, rgba(255,255,255,.08), transparent 60%);
+      opacity:.6;
+      pointer-events:none;
+    }
 
     .heroMain{padding: 22px}
     h1{margin:10px 0 10px; font-size: 40px; line-height:1.08}
@@ -220,9 +233,9 @@
       margin-top: 14px;
       padding: 12px 14px;
       border-radius: 14px;
-      border: 1px dashed rgba(255,255,255,.22);
+      border: 1px dashed rgba(255,255,255,.20);
       background: rgba(0,0,0,.18);
-      color: rgba(255,255,255,.75);
+      color: rgba(255,255,255,.74);
       font-size: 13px;
     }
 
@@ -233,9 +246,13 @@
       border-radius: 16px;
       border: 1px solid var(--line);
       background: rgba(0,0,0,.20);
-      transition: transform .12s ease, border-color .12s ease;
+      transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
     }
-    .stat:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.20)}
+    .stat:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.20);
+      box-shadow: 0 16px 30px rgba(0,0,0,.25);
+    }
     .stat .big{font-weight:950; font-size:18px}
     .stat .small{color:var(--muted); font-size:13px; margin-top:4px}
     .miniCard{
@@ -246,10 +263,10 @@
       background: rgba(255,255,255,.03);
     }
 
-    /* Sections */
     .section{padding: 18px 0}
     .section h2{margin:0 0 10px; font-size:26px}
     .section p{margin:0; color:var(--muted); line-height:1.55}
+
     .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-top: 14px}
     @media (max-width: 980px){.grid3{grid-template-columns:1fr 1fr}}
     @media (max-width: 620px){.grid3{grid-template-columns:1fr}}
@@ -263,6 +280,15 @@
       position:relative;
       overflow:hidden;
     }
+    .tile::after{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(600px 160px at 20% 0%, rgba(255,255,255,.08), transparent 60%);
+      opacity:.0;
+      transition: opacity .2s ease;
+      pointer-events:none;
+    }
+    .tile:hover::after{opacity:.9}
     .tile:hover{
       transform: translateY(-2px);
       border-color: rgba(255,255,255,.20);
@@ -274,17 +300,21 @@
     .twoCol{display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top: 14px}
     @media (max-width: 860px){.twoCol{grid-template-columns:1fr}}
 
-    .steps{padding:16px; border-radius:18px; border:1px solid var(--line); background: rgba(255,255,255,.03)}
+    .steps{
+      padding:16px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
     .step{display:flex; gap:12px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.08)}
     .step:last-child{border-bottom:none}
     .badge{
       width:28px; height:28px; border-radius:10px;
       display:flex; align-items:center; justify-content:center;
-      background: rgba(255,122,24,.18);
-      border: 1px solid rgba(255,122,24,.35);
+      background: rgba(201,205,211,.12);
+      border: 1px solid rgba(201,205,211,.24);
       font-weight:950;
     }
-    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace}
 
     /* Pricing */
     .pricing{display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; margin-top: 14px}
@@ -300,14 +330,23 @@
       overflow:hidden;
       transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
     }
+    .plan::after{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(700px 180px at 18% 0%, rgba(255,255,255,.09), transparent 60%);
+      opacity:0;
+      transition: opacity .2s ease;
+      pointer-events:none;
+    }
+    .plan:hover::after{opacity:.9}
     .plan:hover{
       transform: translateY(-2px);
       border-color: rgba(255,255,255,.20);
       box-shadow: 0 18px 40px rgba(0,0,0,.28);
     }
     .plan.featured{
-      border-color: rgba(255,122,24,.55);
-      background: linear-gradient(180deg, rgba(255,122,24,.14), rgba(255,255,255,.03));
+      border-color: rgba(201,205,211,.35);
+      background: linear-gradient(180deg, rgba(201,205,211,.10), rgba(255,255,255,.03));
     }
     .tag{
       display:inline-flex; align-items:center; gap:8px;
@@ -318,7 +357,6 @@
       color: var(--muted);
       background: rgba(0,0,0,.20);
     }
-
     .priceRow{
       display:flex;
       align-items:flex-end;
@@ -328,8 +366,6 @@
     }
     .currency{color: var(--muted); font-weight:900}
     .price{font-size: 34px; font-weight: 950; line-height:1}
-
-    /* USD small next to price */
     .usd{
       font-size: 12px;
       color: rgba(255,255,255,.65);
@@ -341,26 +377,29 @@
       transform: translateY(-4px);
       white-space:nowrap;
     }
-
     .per{color:var(--soft); font-size:13px; margin-top:2px}
     ul{margin: 12px 0 14px; padding-left: 18px; color: var(--muted)}
     li{margin: 6px 0}
 
-    /* FAQ */
-    .faq{margin-top:14px}
-    details{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      border-radius: 16px;
-      padding: 12px 14px;
-      margin-bottom:10px;
-      transition: border-color .12s ease, transform .12s ease;
+    /* Section title */
+    .sectionTitle{
+      margin: 26px 0 10px;
+      font-size: 18px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+      font-weight: 950;
     }
-    details:hover{border-color: rgba(255,255,255,.20); transform: translateY(-1px)}
-    summary{cursor:pointer; font-weight:900}
-    details p{margin:10px 0 0; color:var(--muted)}
+    .sectionTitle small{
+      display:block;
+      margin-top:6px;
+      letter-spacing: 0;
+      text-transform:none;
+      font-weight:700;
+      color: rgba(255,255,255,.55);
+      font-size: 13px;
+    }
 
-    /* Footer */
     footer{
       margin-top: 24px;
       border-top: 1px solid var(--line);
@@ -372,24 +411,6 @@
     @media (max-width: 760px){.footGrid{grid-template-columns:1fr}}
     .smallLinks{display:flex; gap:10px; flex-wrap:wrap}
     .smallLinks a{padding:8px 10px; border-radius: 999px; border:1px solid var(--line); background: rgba(255,255,255,.03)}
-
-    /* Toast */
-    .toast{
-      position: fixed;
-      bottom: 16px; left: 50%;
-      transform: translateX(-50%);
-      max-width: min(520px, calc(100% - 28px));
-      padding: 12px 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.18);
-      background: rgba(0,0,0,.55);
-      backdrop-filter: blur(10px);
-      display:none;
-      color: rgba(255,255,255,.86);
-      box-shadow: var(--shadow);
-      font-size: 14px;
-    }
-    .toast.show{display:block}
 
     /* Floating WhatsApp */
     .waFloat{
@@ -414,17 +435,14 @@
     .waFloat b{font-size:14px}
     .waFloat span{font-size:12px; color:var(--muted); display:block; margin-top:2px}
 
-    /* Reveal on scroll */
+    /* Reveal */
     .reveal{
       opacity: 0;
       transform: translateY(10px);
       transition: opacity .55s ease, transform .55s ease;
       will-change: opacity, transform;
     }
-    .reveal.show{
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.show{opacity:1; transform: translateY(0)}
   </style>
 </head>
 
@@ -433,6 +451,8 @@
     <div class="blob a"></div>
     <div class="blob b"></div>
     <div class="blob c"></div>
+    <div class="grain"></div>
+    <div class="gridfx"></div>
   </div>
 
   <header class="topbar">
@@ -444,24 +464,23 @@
         </a>
 
         <nav class="navlinks" aria-label="Secciones">
-          <a href="#inicio">Flujo TV</a>
-          <a href="#planes">Planes</a>
-          <a href="#instalar">Instalar</a>
-          <a href="#faq">FAQ</a>
+          <a href="#inicio">Inicio</a>
+          <a href="#planes-flujo">Planes FlujoTV</a>
+          <a href="#planes-smarter">IPTV Smarters</a>
+          <a href="#descargar">Descargar</a>
         </nav>
 
         <div class="cta">
           <button class="btn menuBtn" id="menuBtn" type="button">Menú</button>
-          <a class="btn" href="#planes">Ver Planes</a>
+          <a class="btn" href="#planes-flujo">Ver Planes</a>
           <a class="btn primary" href="#descargar">Descargar</a>
         </div>
       </div>
 
       <div class="drawer" id="drawer" aria-label="Menú móvil">
-        <a href="#inicio">Flujo TV</a>
-        <a href="#planes">Planes</a>
-        <a href="#instalar">Instalar</a>
-        <a href="#faq">FAQ</a>
+        <a href="#inicio">Inicio</a>
+        <a href="#planes-flujo">Planes FlujoTV</a>
+        <a href="#planes-smarter">IPTV Smarters</a>
         <a href="#descargar">Descargar</a>
       </div>
     </div>
@@ -472,6 +491,7 @@
       <div class="wrap">
         <div class="heroGrid">
           <div class="card heroMain reveal">
+            <div class="cardGlow" aria-hidden="true"></div>
             <div class="pill">⚡ Canales en vivo • Deportes • Películas • Series</div>
             <h1>Descarga Flujo TV y disfruta todo en una sola app</h1>
             <p class="lead">
@@ -480,17 +500,18 @@
             </p>
 
             <div class="heroActions">
-              <a class="btn primary" href="#planes">Ver Planes</a>
-              <a class="btn" href="#descargar">Descargar</a>
-              <button class="btn ghost" type="button" id="btnCopiarCodigos">Copiar Códigos</button>
+              <a class="btn primary" href="#planes-flujo">Planes FlujoTV</a>
+              <a class="btn" href="#planes-smarter">IPTV Smarters</a>
+              <a class="btn ghost" href="https://wa.me/51936301637" target="_blank" rel="noopener">WhatsApp</a>
             </div>
 
             <div class="note">
-              Si necesitas el APK, entra a “Descargar” y te abre WhatsApp con el mensaje listo.
+              En “Descargar APK” se abre WhatsApp con el mensaje listo: “pásame el APK…”.
             </div>
           </div>
 
           <div class="card side reveal">
+            <div class="cardGlow" aria-hidden="true"></div>
             <div class="statGrid">
               <div class="stat">
                 <div class="big">FHD</div>
@@ -517,7 +538,7 @@
               </p>
               <div style="display:flex; gap:10px; flex-wrap:wrap">
                 <a class="btn primary" href="https://wa.me/51936301637" target="_blank" rel="noopener">WhatsApp</a>
-                <a class="btn" href="#planes">Ver precios</a>
+                <a class="btn" href="#descargar">Pedir APK</a>
               </div>
             </div>
           </div>
@@ -525,49 +546,49 @@
 
         <!-- DESCARGAR -->
         <section id="descargar" class="section reveal">
-          <h2>Descargar Flujo TV</h2>
-          <p>Elige tu dispositivo. El botón te abre WhatsApp para que me pidas el APK.</p>
+          <h2>Descargar</h2>
+          <p>Elige tu dispositivo. El botón abre WhatsApp para pedir el APK.</p>
 
           <div class="grid3">
             <div class="tile">
               <h3>Celulares y Tablet Android</h3>
-              <p>Compatible con la mayoría de teléfonos y tablets Android.</p>
-              <a class="btn primary" href="https://wa.me/51936301637?text=Hola%2C%20p%C3%A1same%20el%20APK%20para%20Android%20(celular%2Ftablet)%20por%20favor" target="_blank" rel="noopener">
-                Descargar APK
-              </a>
+              <p>Compatible con la mayoría de Android.</p>
+              <a class="btn primary"
+                 href="https://wa.me/51936301637?text=Hola%2C%20p%C3%A1same%20el%20APK%20para%20Android%20(celular%2Ftablet)%20por%20favor"
+                 target="_blank" rel="noopener">Descargar APK</a>
             </div>
 
             <div class="tile">
               <h3>Android TV / Google TV / Fire TV</h3>
-              <p>Para Smart TV con Android TV o dispositivos tipo Fire TV.</p>
-              <a class="btn primary" href="https://wa.me/51936301637?text=Hola%2C%20p%C3%A1same%20el%20APK%20para%20Android%20TV%2FGoogle%20TV%2FFire%20TV%20por%20favor" target="_blank" rel="noopener">
-                Descargar APK
-              </a>
+              <p>Para Smart TV o Fire TV Stick.</p>
+              <a class="btn primary"
+                 href="https://wa.me/51936301637?text=Hola%2C%20p%C3%A1same%20el%20APK%20para%20Android%20TV%2FGoogle%20TV%2FFire%20TV%20por%20favor"
+                 target="_blank" rel="noopener">Descargar APK</a>
             </div>
 
             <div class="tile">
               <h3>PC Windows / Mac</h3>
-              <p>Se usa emulador Android (ej. Bluestacks). Te paso guía + APK.</p>
-              <a class="btn primary" href="https://wa.me/51936301637?text=Hola%2C%20p%C3%A1same%20el%20APK%20y%20la%20gu%C3%ADa%20para%20instalar%20en%20PC%2FMAC%20por%20favor" target="_blank" rel="noopener">
-                Pedir APK + Guía
-              </a>
+              <p>Se usa emulador Android (ej. Bluestacks).</p>
+              <a class="btn primary"
+                 href="https://wa.me/51936301637?text=Hola%2C%20p%C3%A1same%20el%20APK%20y%20la%20gu%C3%ADa%20para%20instalar%20en%20PC%2FMAC%20por%20favor"
+                 target="_blank" rel="noopener">Pedir APK + Guía</a>
             </div>
           </div>
         </section>
 
-        <!-- INSTALAR -->
+        <!-- INSTALAR (sin reseñas / sin códigos) -->
         <section id="instalar" class="section reveal">
           <h2>¿Cómo instalar?</h2>
-          <p>Guía rápida + códigos para Downloader.</p>
+          <p>Guía rápida de instalación (sin códigos).</p>
 
           <div class="twoCol">
             <div class="steps">
               <div class="step">
                 <div class="badge">1</div>
                 <div>
-                  <b>Pide el APK por WhatsApp</b>
+                  <b>Pide el APK</b>
                   <div style="color:var(--muted); font-size:14px; margin-top:4px">
-                    Usa “Descargar APK” según tu dispositivo.
+                    Usa “Descargar APK” y se abre WhatsApp con el mensaje listo.
                   </div>
                 </div>
               </div>
@@ -576,14 +597,14 @@
                 <div>
                   <b>Activa “orígenes desconocidos”</b>
                   <div style="color:var(--muted); font-size:14px; margin-top:4px">
-                    Ajustes &gt; Seguridad (varía por modelo).
+                    Ajustes &gt; Seguridad (varía por dispositivo).
                   </div>
                 </div>
               </div>
               <div class="step">
                 <div class="badge">3</div>
                 <div>
-                  <b>Instala y entra con tu cuenta</b>
+                  <b>Instala y entra</b>
                   <div style="color:var(--muted); font-size:14px; margin-top:4px">
                     Elige un plan y te activamos.
                   </div>
@@ -593,29 +614,24 @@
 
             <div class="steps">
               <div class="step">
-                <div class="badge">#</div>
+                <div class="badge">i</div>
                 <div>
-                  <b>Códigos Downloader</b>
-                  <div style="margin-top:6px; color:var(--muted); font-size:14px">
-                    Celular: <span class="mono" id="codigoCel">6927858</span><br/>
-                    Smart TV: <span class="mono" id="codigoTv">1241939</span>
+                  <b>Soporte directo</b>
+                  <div style="color:var(--muted); font-size:14px; margin-top:4px">
+                    Si algo falla, te guiamos por WhatsApp.
                   </div>
-                  <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap">
-                    <button class="btn" type="button" id="btnCopiar2">Copiar</button>
-                    <a class="btn primary" href="#planes">Ver planes</a>
+                  <div style="margin-top:10px">
+                    <a class="btn primary" href="https://wa.me/51936301637" target="_blank" rel="noopener">WhatsApp soporte</a>
                   </div>
                 </div>
               </div>
 
               <div class="step">
-                <div class="badge">i</div>
+                <div class="badge">✓</div>
                 <div>
-                  <b>Soporte directo</b>
+                  <b>Recomendación</b>
                   <div style="color:var(--muted); font-size:14px; margin-top:4px">
-                    Si algo falla, te guiamos paso a paso.
-                  </div>
-                  <div style="margin-top:10px">
-                    <a class="btn primary" href="https://wa.me/51936301637" target="_blank" rel="noopener">WhatsApp soporte</a>
+                    Usa Wi-Fi estable para mejor experiencia.
                   </div>
                 </div>
               </div>
@@ -624,10 +640,12 @@
           </div>
         </section>
 
-        <!-- PLANES -->
-        <section id="planes" class="section reveal">
-          <h2>Planes</h2>
-          <p>Selecciona tu plan. Compra y activación por WhatsApp.</p>
+        <!-- PLANES FLUJOTV (ACTUALIZADOS) -->
+        <section id="planes-flujo" class="section reveal">
+          <div class="sectionTitle">
+            PLANES FLUJOTV
+            <small>Mismas características • Compra por WhatsApp</small>
+          </div>
 
           <div class="pricing">
             <div class="plan featured">
@@ -645,9 +663,9 @@
                 <li>Canales en vivo + deportes</li>
                 <li>Películas y series</li>
               </ul>
-              <a class="btn primary" href="https://wa.me/51936301637?text=Hola%2C%20quiero%20el%20plan%2012%2B2%20meses%20(S%2F%20175%20-%20USD%2065)" target="_blank" rel="noopener">
-                Comprar por WhatsApp
-              </a>
+              <a class="btn primary"
+                 href="https://wa.me/51936301637?text=Hola%2C%20quiero%20el%20plan%20FLUJOTV%2012%2B2%20meses%20(S%2F%20175%20-%20USD%2065)"
+                 target="_blank" rel="noopener">Comprar por WhatsApp</a>
             </div>
 
             <div class="plan">
@@ -665,9 +683,9 @@
                 <li>Deportes y canales en vivo</li>
                 <li>Soporte incluido</li>
               </ul>
-              <a class="btn" href="https://wa.me/51936301637?text=Hola%2C%20quiero%20el%20plan%206%2B1%20meses%20(S%2F%2090%20-%20USD%2034)" target="_blank" rel="noopener">
-                Comprar por WhatsApp
-              </a>
+              <a class="btn"
+                 href="https://wa.me/51936301637?text=Hola%2C%20quiero%20el%20plan%20FLUJOTV%206%2B1%20meses%20(S%2F%2090%20-%20USD%2034)"
+                 target="_blank" rel="noopener">Comprar por WhatsApp</a>
             </div>
 
             <div class="plan">
@@ -685,9 +703,9 @@
                 <li>Películas y series</li>
                 <li>Canales en vivo</li>
               </ul>
-              <a class="btn" href="https://wa.me/51936301637?text=Hola%2C%20quiero%20el%20plan%203%20meses%20(S%2F%2045%20-%20USD%2017)" target="_blank" rel="noopener">
-                Comprar por WhatsApp
-              </a>
+              <a class="btn"
+                 href="https://wa.me/51936301637?text=Hola%2C%20quiero%20el%20plan%20FLUJOTV%203%20meses%20(S%2F%2045%20-%20USD%2017)"
+                 target="_blank" rel="noopener">Comprar por WhatsApp</a>
             </div>
 
             <div class="plan">
@@ -705,57 +723,99 @@
                 <li>Compatible Android/TV</li>
                 <li>Renovable cuando quieras</li>
               </ul>
-              <a class="btn" href="https://wa.me/51936301637?text=Hola%2C%20quiero%20el%20plan%201%20mes%20(S%2F%2015%20-%20USD%206)" target="_blank" rel="noopener">
-                Comprar por WhatsApp
-              </a>
+              <a class="btn"
+                 href="https://wa.me/51936301637?text=Hola%2C%20quiero%20el%20plan%20FLUJOTV%201%20mes%20(S%2F%2015%20-%20USD%206)"
+                 target="_blank" rel="noopener">Comprar por WhatsApp</a>
             </div>
-          </div>
-
-          <div class="note">
-            Si quieres que cambie “Flujo TV” por otro nombre/logo, dímelo y lo ajusto.
           </div>
         </section>
 
-        <!-- FAQ (sin reseñas) -->
-        <section id="faq" class="section reveal">
-          <h2>Preguntas frecuentes</h2>
-
-          <div class="faq">
-            <details>
-              <summary>¿En qué dispositivos funciona?</summary>
-              <p>Android, Android TV, Google TV y Fire TV. En PC/Mac usando emulador Android.</p>
-            </details>
-            <details>
-              <summary>¿Cómo pido el APK?</summary>
-              <p>En “Descargar”, toca el botón y se abre WhatsApp con el mensaje listo: “pásame el APK…”.</p>
-            </details>
-            <details>
-              <summary>¿Cómo me activan?</summary>
-              <p>Eliges un plan y te activamos por WhatsApp.</p>
-            </details>
+        <!-- IPTV SMARTERS (MISMO ESTILO) -->
+        <section id="planes-smarter" class="section reveal">
+          <div class="sectionTitle">
+            IPTV SMARTERS
+            <small>Mismas características que FlujoTV • Compra por WhatsApp</small>
           </div>
-        </section>
 
-        <!-- Blog ligero (opcional) -->
-        <section class="section reveal">
-          <h2>Guías rápidas</h2>
-          <p>Sección opcional para tutoriales (placeholders).</p>
+          <div class="pricing">
+            <div class="plan featured">
+              <div class="tag">🔥 Más popular</div>
+              <h3 style="margin:10px 0 0">12+2 meses</h3>
+              <div class="priceRow">
+                <div class="currency">S/</div>
+                <div class="price">130</div>
+                <div class="usd">USD 49</div>
+              </div>
+              <div class="per">14 meses de acceso (12 + 2 gratis)</div>
+              <ul>
+                <li>Acceso completo</li>
+                <li>3 dispositivos</li>
+                <li>Canales en vivo + deportes</li>
+                <li>Películas y series</li>
+              </ul>
+              <a class="btn primary"
+                 href="https://wa.me/51936301637?text=Hola%2C%20quiero%20el%20plan%20IPTV%20SMARTERS%2012%2B2%20meses%20(S%2F%20130%20-%20USD%2049)"
+                 target="_blank" rel="noopener">Comprar por WhatsApp</a>
+            </div>
 
-          <div class="grid3">
-            <div class="tile">
-              <h3>Instalación en Android TV</h3>
-              <p>Pasos simples para instalar y abrir la app.</p>
-              <a class="btn small" href="https://wa.me/51936301637?text=Hola%2C%20ay%C3%BAdame%20a%20instalar%20en%20Android%20TV%20por%20favor" target="_blank" rel="noopener">Pedir ayuda</a>
+            <div class="plan">
+              <div class="tag">🎁 Incluye 1 gratis</div>
+              <h3 style="margin:10px 0 0">6+1 meses</h3>
+              <div class="priceRow">
+                <div class="currency">S/</div>
+                <div class="price">70</div>
+                <div class="usd">USD 25</div>
+              </div>
+              <div class="per">7 meses de acceso (6 + 1 gratis)</div>
+              <ul>
+                <li>Acceso completo</li>
+                <li>3 dispositivos</li>
+                <li>Deportes y canales en vivo</li>
+                <li>Soporte incluido</li>
+              </ul>
+              <a class="btn"
+                 href="https://wa.me/51936301637?text=Hola%2C%20quiero%20el%20plan%20IPTV%20SMARTERS%206%2B1%20meses%20(S%2F%2070%20-%20USD%2025)"
+                 target="_blank" rel="noopener">Comprar por WhatsApp</a>
             </div>
-            <div class="tile">
-              <h3>Problemas de carga</h3>
-              <p>Tips si se queda cargando o se corta.</p>
-              <a class="btn small" href="https://wa.me/51936301637?text=Hola%2C%20tengo%20problemas%20de%20carga%2C%20%C2%BFme%20ayudas%3F" target="_blank" rel="noopener">Soporte</a>
+
+            <div class="plan">
+              <div class="tag">⭐ Recomendado</div>
+              <h3 style="margin:10px 0 0">3 meses</h3>
+              <div class="priceRow">
+                <div class="currency">S/</div>
+                <div class="price">35</div>
+                <div class="usd">USD 12</div>
+              </div>
+              <div class="per">Ideal para probar con calma</div>
+              <ul>
+                <li>Acceso completo</li>
+                <li>3 dispositivos</li>
+                <li>Películas y series</li>
+                <li>Canales en vivo</li>
+              </ul>
+              <a class="btn"
+                 href="https://wa.me/51936301637?text=Hola%2C%20quiero%20el%20plan%20IPTV%20SMARTERS%203%20meses%20(S%2F%2035%20-%20USD%2012)"
+                 target="_blank" rel="noopener">Comprar por WhatsApp</a>
             </div>
-            <div class="tile">
-              <h3>Activación</h3>
-              <p>Te activamos al instante con tu plan.</p>
-              <a class="btn small" href="https://wa.me/51936301637?text=Hola%2C%20quiero%20activar%20mi%20cuenta%20por%20favor" target="_blank" rel="noopener">Activar</a>
+
+            <div class="plan">
+              <div class="tag">✅ Económico</div>
+              <h3 style="margin:10px 0 0">1 mes</h3>
+              <div class="priceRow">
+                <div class="currency">S/</div>
+                <div class="price">12</div>
+                <div class="usd">USD 4.5</div>
+              </div>
+              <div class="per">Perfecto para empezar</div>
+              <ul>
+                <li>Acceso completo</li>
+                <li>3 dispositivos</li>
+                <li>Compatible Android/TV</li>
+                <li>Renovable cuando quieras</li>
+              </ul>
+              <a class="btn"
+                 href="https://wa.me/51936301637?text=Hola%2C%20quiero%20el%20plan%20IPTV%20SMARTERS%201%20mes%20(S%2F%2012%20-%20USD%204.5)"
+                 target="_blank" rel="noopener">Comprar por WhatsApp</a>
             </div>
           </div>
         </section>
@@ -766,7 +826,7 @@
 
   <footer>
     <div class="wrap">
-      <div class="footGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px">
+      <div class="footGrid">
         <div>
           <div class="brand" style="margin-bottom:10px">
             <span class="logo" aria-hidden="true"></span>
@@ -779,8 +839,8 @@
             <a href="#inicio">Inicio</a>
             <a href="#descargar">Descargar</a>
             <a href="#instalar">Instalar</a>
-            <a href="#planes">Planes</a>
-            <a href="#faq">FAQ</a>
+            <a href="#planes-flujo">FlujoTV</a>
+            <a href="#planes-smarter">IPTV Smarters</a>
           </div>
           <div style="margin-top:10px; color:rgba(255,255,255,.55);">
             Soporte: WhatsApp 51936301637
@@ -798,8 +858,6 @@
     </div>
   </a>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -812,30 +870,6 @@
       });
       drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", () => drawer.style.display="none"));
     }
-
-    // Toast
-    function showToast(msg){
-      const t = document.getElementById("toast");
-      t.textContent = msg;
-      t.classList.add("show");
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(()=>t.classList.remove("show"), 2200);
-    }
-
-    // Copy codes
-    function copyText(text){
-      navigator.clipboard.writeText(text).then(
-        ()=>showToast("Copiado ✅"),
-        ()=>showToast("No se pudo copiar ❌")
-      );
-    }
-    const copyAll = () => {
-      const cel = document.getElementById("codigoCel").textContent.trim();
-      const tv  = document.getElementById("codigoTv").textContent.trim();
-      copyText(`Celular: ${cel}\nSmart TV: ${tv}`);
-    };
-    document.getElementById("btnCopiarCodigos").addEventListener("click", copyAll);
-    document.getElementById("btnCopiar2").addEventListener("click", copyAll);
 
     // Reveal on scroll
     const io = new IntersectionObserver((entries)=>{
